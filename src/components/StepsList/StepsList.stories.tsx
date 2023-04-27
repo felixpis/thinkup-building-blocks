@@ -1,0 +1,41 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import { v4 as uuidv4 } from 'uuid';
+
+import StepsList from './StepsList';
+import { useState } from 'react';
+import { IQuestion } from '../../models/Question';
+import { IStep } from '../../models/Step';
+import questionsMock from './__mocks__/questions.json'
+
+const meta: Meta<typeof StepsList> = {
+  title: 'StepsList',
+  component: StepsList,
+};
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+const StepsListExample = () => {
+  const [steps, setSteps] = useState<IStep[]>([])
+
+  const handleAdd = () => {
+    const newOrder = !!steps[steps.length - 1] ? steps[steps.length - 1].order + 1 : 1
+    setSteps([...steps, { id: uuidv4(), order: newOrder, questions: []}])
+  }
+
+  const handleUpdate = (step: IStep, questions: IQuestion[]) => {
+    const foundIndex = steps.findIndex(s => s.id === step.id)
+    setSteps([...steps.slice(0, foundIndex), {...step, questions }, ...steps.slice(foundIndex + 1)])
+  }
+
+  const handleDelete = (step: IStep) => {
+    setSteps(steps.filter(s => s.id !== step.id))
+  }
+  return <StepsList steps={steps} questions={questionsMock} onAdd={handleAdd} onUpdate={handleUpdate} onDelete={handleDelete} />
+}
+
+export const Primary: Story = {
+  render: () => <StepsListExample />,
+};
+
+
