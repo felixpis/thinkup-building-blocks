@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import 'antd/dist/reset.css'
+import Header from './components/Header/Header'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import Questions from './pages/Questions'
+import Steps from './pages/Steps'
+import Preview from './pages/Preview'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <BrowserRouter>
+      <div>
+        <Header />
+        <Routes>
+          <Route index path='/questions' element={<Questions />} />
+          <Route path='/steps' element={<Steps />} />
+          <Route path='/preview' element={<Preview />} />
+          <Route path='/' element={<Navigate to="/questions" />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
+  )
 }
 
-export default App;
+export default App

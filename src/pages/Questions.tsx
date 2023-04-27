@@ -1,19 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import React, { useState } from 'react'
+import styled from 'styled-components'
 import { v4 as uuidv4 } from 'uuid';
+import QuestionsList from '../components/QuestionsList/QuestionsList'
+import { IQuestion } from '../models/Question'
 
-import QuestionsList from './QuestionsList';
-import { useState } from 'react';
-import { IQuestion } from '../../models/Question';
-
-const meta: Meta<typeof QuestionsList> = {
-  title: 'QuestionsList',
-  component: QuestionsList,
-};
-
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-const QuestionsListExample = () => {
+const Questions = () => {
   const [questions, setQuestions] = useState<IQuestion[]>([])
 
   const handleAdd = (content: string) => {
@@ -28,11 +19,15 @@ const QuestionsListExample = () => {
   const handleDelete = (item: IQuestion) => {
     setQuestions(questions.filter(question => question.id !== item.id))
   }
-  return <QuestionsList questions={questions} onAdd={handleAdd} onUpdate={handleUpdate} onDelete={handleDelete} />
+  return (
+    <Root>
+      <QuestionsList questions={questions} onAdd={handleAdd} onUpdate={handleUpdate} onDelete={handleDelete} />
+    </Root>
+  )
 }
 
-export const Primary: Story = {
-  render: () => <QuestionsListExample />,
-};
+const Root = styled.div`
+  margin: 15px;
+`
 
-
+export default Questions
