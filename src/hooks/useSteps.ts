@@ -1,0 +1,34 @@
+import { useContext, useEffect } from "react";
+import { v4 as uuidv4 } from 'uuid';
+import { StoreContext } from "../context/StoreContext";
+import stepsApi from "../api/steps-api";
+import { IQuestion } from "../models/Question";
+import { IStep } from "../models/Step";
+
+export default function useSteps() {
+  const { steps, setSteps } = useContext(StoreContext)
+
+  useEffect(() => {
+    stepsApi.getSteps().then(value => setSteps(value))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const addStep = () => {
+    const newOrder = !!steps[steps.length - 1] ? steps[steps.length - 1].order + 1 : 1
+    const newStep = { id: uuidv4(), order: newOrder, questions: []}
+    setSteps([...steps, newStep])
+    stepsApi.createStep(newStep)
+  }
+
+  const updateStep = (step: IStep, questions: IQuestion[]) => {
+    const foundIndex = steps.findIndex(s => s.id === step.id)
+    setSteps([...steps.slice(0, foundIndex), {...step, questions }, ...steps.slice(foundIndex + 1)])
+  }
+
+  const deleteStep = (step: IStep) => {
+    setSteps(steps.filter(s => s.id !== step.id))
+    stepsApi.deleteStep(step.id)
+  }
+
+  return { steps, addStep, updateStep, deleteStep }
+}

@@ -4,6 +4,9 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Questions from './pages/Questions'
 import Steps from './pages/Steps'
 import Preview from './pages/Preview'
+import axios from 'axios'
+
+axios.defaults.baseURL = 'http://localhost:3001'
 
 function App() {
   return (

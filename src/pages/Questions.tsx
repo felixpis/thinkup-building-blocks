@@ -1,27 +1,13 @@
-import React, { useState } from 'react'
 import styled from 'styled-components'
-import { v4 as uuidv4 } from 'uuid';
 import QuestionsList from '../components/QuestionsList/QuestionsList'
-import { IQuestion } from '../models/Question'
+import useQuestions from '../hooks/useQuestions';
 
 const Questions = () => {
-  const [questions, setQuestions] = useState<IQuestion[]>([])
+  const { questions, addQuestion, updateQuestion, deleteQuestion } = useQuestions()
 
-  const handleAdd = (content: string) => {
-    setQuestions([...questions, { id: uuidv4(), content }])
-  }
-
-  const handleUpdate = (item: IQuestion, newContent: string) => {
-    const foundIndex = questions.findIndex(question => question.id === item.id)
-    setQuestions([...questions.slice(0, foundIndex), {...item, content: newContent}, ...questions.slice(foundIndex + 1)])
-  }
-
-  const handleDelete = (item: IQuestion) => {
-    setQuestions(questions.filter(question => question.id !== item.id))
-  }
   return (
     <Root>
-      <QuestionsList questions={questions} onAdd={handleAdd} onUpdate={handleUpdate} onDelete={handleDelete} />
+      <QuestionsList questions={questions} onAdd={addQuestion} onUpdate={updateQuestion} onDelete={deleteQuestion} />
     </Root>
   )
 }
