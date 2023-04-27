@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { v4 as uuidv4 } from 'uuid';
+import { DragDropContext } from 'react-beautiful-dnd'
 
 import QuestionsList from './QuestionsList';
 import { useState } from 'react';

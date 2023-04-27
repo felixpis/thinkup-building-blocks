@@ -7,6 +7,7 @@ import { IQuestion } from '../../models/Question'
 import StepItem from './StepItem/StepItem'
 import QuestionsSelector from '../QuestionsSelector/QuestionsSelector'
 import StepQuestions from './StepQuestions/StepQuestions'
+import { DragDropContext, DropResult, ResponderProvided } from 'react-beautiful-dnd'
 
 interface Props {
   steps: IStep[]
@@ -29,7 +30,20 @@ const StepsList = ({ steps, questions, onAdd, onUpdate, onDelete }: Props) => {
     !!selectedStep && onUpdate(selectedStep, selectedStep.questions.filter(q => q.id !== question.id))
   }
 
-  console.log(selectedStep?.questions)
+  const handleDragEnd = (result: DropResult, provided: ResponderProvided) => {
+    const sourceIndex = result.source.index
+    const destinationIndex = result.destination?.index
+    if (!selectedStep || destinationIndex === undefined) {
+      return
+    }
+
+    const list = [...selectedStep.questions]
+
+    const [item] = list.splice(sourceIndex, 1)
+    list.splice(destinationIndex, 0, item)
+
+    onUpdate(selectedStep, list)
+  }
 
   return (
     <Root>
@@ -42,8 +56,12 @@ const StepsList = ({ steps, questions, onAdd, onUpdate, onDelete }: Props) => {
       <QuestionsSide>
         {!selectedStep && <Alert type="info" message="Please select a step" />}
         {selectedStep && <>
-          <StepQuestions questions={selectedStep.questions} onDelete={handleDeleteQuestion} />
-          <QuestionsSelector step={selectedStep} questions={questions} onSelect={handleSelectQuestion} />
+          <DragDropContext onDragEnd={handleDragEnd}>
+            <StepQuestions questions={selectedStep.questions} onDelete={handleDeleteQuestion} />
+          </DragDropContext>
+          <Actions>
+            <QuestionsSelector step={selectedStep} questions={questions} onSelect={handleSelectQuestion} />
+          </Actions>
         </>}
       </QuestionsSide>
     </Root>
