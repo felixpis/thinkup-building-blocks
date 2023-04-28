@@ -2,18 +2,22 @@ import React from 'react'
 import { IStep } from '../../../models'
 import QuestionInput from './QuestionInput'
 import styled from 'styled-components'
-import { Button } from 'antd'
+import { Button, Empty } from 'antd'
 
 interface Props {
   step: IStep
-  onNext: () => void
+  last?: boolean
+  onNext?: () => void
 }
 
-const StepSlide = ({ step, onNext }: Props) => {
+const StepSlide = ({ step, last, onNext }: Props) => {
   return (
     <Root>
-      {step.questions.map(({ content, id }) => <QuestionInput key={id} content={content} multiline={step.questions.length === 1} />)}
-      <Actions><Button type="primary" size="large" onClick={onNext}>Next</Button></Actions>
+      <Questions>
+        {step.questions.length === 0 && <Empty description="No questions available in this step" />}
+        {step.questions.map(({ content, id }) => <QuestionInput key={id} content={content} multiline={step.questions.length === 1} />)}
+      </Questions>
+      {!!onNext && <Actions><Button type="primary" size="large" onClick={onNext}>{ last ? 'Finish' : 'Next'}</Button></Actions>}
     </Root>
   )
 }
@@ -21,10 +25,19 @@ const StepSlide = ({ step, onNext }: Props) => {
 const Root = styled.div`
   display: flex;
   flex-direction: column;
+  height: calc(100vh - 120px);
+`
+
+const Questions = styled.div`
+  display: flex;
+  flex-direction: column;
   gap: 20px;
+  flex: 1;
+  overflow: auto;
 `
 
 const Actions = styled.div`
+  margin-top: 10px;
   text-align: right;
 `
 

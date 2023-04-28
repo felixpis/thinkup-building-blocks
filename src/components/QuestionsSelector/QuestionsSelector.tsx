@@ -18,7 +18,7 @@ const QuestionsSelector = ({ step, questions, onSelect }: Props) => {
 
   return (
     <Dropdown menu={{ items, onClick }}>
-      <Button>Select a question to add to the Step</Button>
+      <Button>Select a question to add to the step</Button>
     </Dropdown>
   )
 }

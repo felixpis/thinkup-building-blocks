@@ -1,10 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 import StepsPreview from '../components/StepsPreview/StepsPreview'
+import { useSteps } from '../hooks'
 
 const Preview = () => {
+
+  const { steps } = useSteps()
+
   return (
-    <Root><StepsPreview steps={[]} /></Root>
+    <Root><StepsPreview steps={steps} /></Root>
   )
 }
 

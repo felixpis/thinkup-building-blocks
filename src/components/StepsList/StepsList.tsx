@@ -1,11 +1,12 @@
-import { Button, Collapse, Empty, Popconfirm } from 'antd'
-import React from 'react'
+import { Button, Collapse, Empty, Modal, Popconfirm } from 'antd'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
 import { IStep, IQuestion } from '../../models'
 import QuestionsSelector from '../QuestionsSelector/QuestionsSelector'
 import StepQuestions from './StepQuestions/StepQuestions'
 import { DragDropContext, DropResult, ResponderProvided } from 'react-beautiful-dnd'
+import StepSlide from '../StepsPreview/StepSlide/StepSlide'
 const { Panel } = Collapse
 
 interface Props {
@@ -17,6 +18,7 @@ interface Props {
 }
 
 const StepsList = ({ steps, questions, onAdd, onUpdate, onDelete }: Props) => {
+  const [previewStep, setPreviewStep] = useState<IStep>()
   const handleSelectQuestion = (step: IStep) => (question: IQuestion) => {
     onUpdate(step, [...step.questions, question])
   }
@@ -26,7 +28,6 @@ const StepsList = ({ steps, questions, onAdd, onUpdate, onDelete }: Props) => {
   }
 
   const handleDragEnd = (result: DropResult, provided: ResponderProvided) => {
-    console.log(result, provided)
     if (!result.destination) {
       return
     }
@@ -48,26 +49,32 @@ const StepsList = ({ steps, questions, onAdd, onUpdate, onDelete }: Props) => {
   }
 
   return (
-    <DragDropContext onDragEnd={handleDragEnd}>
-      {steps.length === 0 && <Empty description="No steps exist yet. Please create some"></Empty>}
-      {steps.length > 0 && (
-        <Collapse accordion>
-          {steps.map((step, index) => (
-            <Panel key={step.id} header={`Step ${index + 1}`} extra={getDeleteAction(() => onDelete(step))}>
-              <Actions pos="bottom">
-                <QuestionsSelector step={step} questions={questions} onSelect={handleSelectQuestion(step)} />
-              </Actions>
-              <StepQuestions step={step} onDelete={handleDeleteQuestion} />
-            </Panel>
-          ))}
-        </Collapse>
-      )}
-      <Actions pos="top">
-        <Button type="primary" size="large" onClick={onAdd} icon={<PlusOutlined />}>
-          Create a new step
-        </Button>
-      </Actions>
-    </DragDropContext>
+    <>
+      <DragDropContext onDragEnd={handleDragEnd}>
+        {steps.length === 0 && <Empty description="No steps exist yet. Please create some"></Empty>}
+        {steps.length > 0 && (
+          <Collapse accordion>
+            {steps.map((step, index) => (
+              <Panel key={step.id} header={`Step ${index + 1}`} extra={getDeleteAction(() => onDelete(step))}>
+                <Actions pos="bottom">
+                  <QuestionsSelector step={step} questions={questions} onSelect={handleSelectQuestion(step)} />
+                  <Button type="link" onClick={() => setPreviewStep(step)}>Preview step</Button>
+                </Actions>
+                <StepQuestions step={step} onDelete={handleDeleteQuestion} />
+              </Panel>
+            ))}
+          </Collapse>
+        )}
+        <Actions pos="top">
+          <Button type="primary" size="large" onClick={onAdd} icon={<PlusOutlined />}>
+            Create a new step
+          </Button>
+        </Actions>
+      </DragDropContext>
+      <Modal width="90%" footer={null} open={!!previewStep} onCancel={() => setPreviewStep(undefined)}>
+        {!!previewStep && <StepSlide step={previewStep} />}
+      </Modal>
+    </>
   )
 }
 
@@ -79,7 +86,9 @@ const getDeleteAction = (onDelete: () => void) => (
 
 const Actions = styled.div<{ pos: 'top' | 'bottom' }>`
   ${(props) => `margin-${props.pos}: 20px`};
-  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 `
 
 export default StepsList

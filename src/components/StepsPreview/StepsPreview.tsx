@@ -16,7 +16,7 @@ const StepsPreview = ({ steps }: Props) => {
   }
   return (
     <Carousel ref={carouselRef}>
-      {steps.map(step => <div key={step.id}><StepSlide step={step} onNext={handleNext} /></div>)}
+      {steps.map((step, index) => <div key={step.id}><StepSlide step={step} last={index === steps.length - 1} onNext={handleNext} /></div>)}
     </Carousel>
   )
 }
