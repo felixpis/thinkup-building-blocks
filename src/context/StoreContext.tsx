@@ -25,7 +25,7 @@ const StoreProvider = ({ children }: { children: React.ReactElement }) => {
 const mapQuestionsToSteps = (steps: IStep[], questions: IQuestion[]) => {
   const questionsObj = mapQuestionsToObj(questions)
   return steps.map(step => {
-    const mappedQuestions: IQuestion[] = step.questions.map(q => ({ id: q.id, content: questionsObj[q.id]}))
+    const mappedQuestions: IQuestion[] = (step.questions as any as string[]).map(id => ({ id, content: questionsObj[id]}))
     return {...step, questions: mappedQuestions}
   })
 }
