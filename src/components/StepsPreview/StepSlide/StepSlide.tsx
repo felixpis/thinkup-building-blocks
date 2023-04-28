@@ -27,7 +27,7 @@ const StepSlide = ({ step, last, standalone, onNext }: Props) => {
 const Root = styled.div<{$standalone?: boolean}>`
   display: flex;
   flex-direction: column;
-  height: ${props => props.$standalone ? 'auto' : 'calc(100vh - 120px)'};
+  height: ${props => props.$standalone ? 'auto' : 'calc(100vh - 180px)'};
 `
 
 const Questions = styled.div`
