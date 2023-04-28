@@ -5,9 +5,9 @@
 
 1. First you need to add questions to the list (in corresponding screen)
 2. Then create steps on next screen
-3. Every steps is expandable and then you can add questions to this from previous screen
+3. Every step is expandable and then you can add questions to this from previous screen
 4. Questions in step can be reordered by drag and drop (handler on the left near every step)
-5. Every step has preview option, to see how user will see it
+5. Every step has preview option, to check how user will see it
 6. One question in step - Input is multiline, More then one step - every input is single line
 7. In Preview screen you can see all these questions and steps in Carousel
 
