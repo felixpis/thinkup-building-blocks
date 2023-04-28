@@ -1,10 +1,28 @@
-# Getting Started with Create React App
+![image](https://thinkup.global/wp-content/themes/thinkup/img/logo.svg)
+# ThinkUp Building Blocks app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Create questions and arrange them by steps
+
+1. First you need to add questions to the list (in corresponding screen)
+2. Then create steps on next screen
+3. Every steps is expandable and then you can add questions to this from previous screen
+4. Questions in step can be reordered by drag and drop (handler on the left near every step)
+5. Every step has preview option, to see how user will see it
+6. One question in step - Input is multiline, More then one step - every input is single line
+7. In Preview screen you can see all these questions and steps in Carousel
 
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `npm install`
+
+First install dependencies
+
+### `npm run server`
+
+Then run server (json-server should be installed on computer before).\
+This will run server on port 3001
 
 ### `npm start`
 
@@ -13,11 +31,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
 
@@ -28,19 +41,3 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
