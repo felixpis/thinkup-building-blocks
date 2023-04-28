@@ -5,7 +5,7 @@ import stepsApi from "../api/steps-api";
 import { IStep, IQuestion } from "../models";
 
 export default function useSteps() {
-  const { steps, setSteps } = useContext(StoreContext)
+  const { steps, questions, setSteps } = useContext(StoreContext)
 
   useEffect(() => {
     stepsApi.getSteps().then(value => setSteps(value))
@@ -30,5 +30,20 @@ export default function useSteps() {
     stepsApi.deleteStep(step.id)
   }
 
-  return { steps, addStep, updateStep, deleteStep }
+  return { steps: mapQuestionsToSteps(steps, questions), addStep, updateStep, deleteStep }
+}
+
+const mapQuestionsToSteps = (steps: IStep[], questions: IQuestion[]) => {
+  const questionsObj = mapQuestionsToObj(questions)
+  return steps.map(step => {
+    const mappedQuestions: IQuestion[] = (step.questions as any as string[]).map(id => ({ id, content: questionsObj[id]}))
+    return {...step, questions: mappedQuestions}
+  })
+}
+
+const mapQuestionsToObj = (questions: IQuestion[]): Record<string, string> => {
+  return questions.reduce((prev, current) => {
+    prev[current.id] = current.content
+    return prev
+  }, {} as Record<string, string>)
 }

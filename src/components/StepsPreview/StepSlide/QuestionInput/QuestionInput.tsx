@@ -1,5 +1,5 @@
 import React from 'react'
-import { Input, Typography } from 'antd'
+import { Input } from 'antd'
 import styled from 'styled-components'
 
 const { TextArea } = Input
@@ -12,7 +12,7 @@ interface Props {
 const QuestionInput = ({ content, multiline }: Props) => {
   return (
     <Root>
-      <Typography.Title>{content}</Typography.Title>
+      <Title>{content}</Title>
       {multiline ? <TextArea size="large" /> : <Input size="large" />}
     </Root>
   )
@@ -22,6 +22,12 @@ const Root = styled.div`
   background-color: #fbfbfb;
   padding: 10px 20px;
   border-radius: 20px;
+`
+
+const Title = styled.h1`
+  @media screen and (max-width: 480px) {
+    font-size: 18px;
+  }
 `
 
 export default QuestionInput

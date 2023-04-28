@@ -72,7 +72,7 @@ const StepsList = ({ steps, questions, onAdd, onUpdate, onDelete }: Props) => {
         </Actions>
       </DragDropContext>
       <Modal width="90%" footer={null} open={!!previewStep} onCancel={() => setPreviewStep(undefined)}>
-        {!!previewStep && <StepSlide step={previewStep} />}
+        {!!previewStep && <StepSlide step={previewStep} standalone />}
       </Modal>
     </>
   )

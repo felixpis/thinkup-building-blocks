@@ -1,10 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 import StepsPreview from '../components/StepsPreview/StepsPreview'
-import { useSteps } from '../hooks'
+import { useQuestions, useSteps } from '../hooks'
 
 const Preview = () => {
 
+  useQuestions()
   const { steps } = useSteps()
 
   return (

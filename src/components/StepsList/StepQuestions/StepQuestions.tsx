@@ -20,7 +20,7 @@ const StepQuestions = ({ step, onDelete }: Props) => {
           {(provided, snapshot) => (
             <List {...provided.droppableProps} ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
               {questions.map((item, index) => (
-                <Draggable key={item.id} draggableId={`${step.id}_${item.id}`} index={index}>
+                <Draggable key={`${step.id}_${item.id}`} draggableId={`${step.id}_${item.id}`} index={index}>
                   {(provided, snapshot) => (
                     <Item ref={provided.innerRef} {...provided.draggableProps} style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}>
                       <Content>

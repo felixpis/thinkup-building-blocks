@@ -7,25 +7,27 @@ import { Button, Empty } from 'antd'
 interface Props {
   step: IStep
   last?: boolean
+  standalone?: boolean
   onNext?: () => void
 }
 
-const StepSlide = ({ step, last, onNext }: Props) => {
+const StepSlide = ({ step, last, standalone, onNext }: Props) => {
+
   return (
-    <Root>
+    <Root $standalone={standalone}>
       <Questions>
         {step.questions.length === 0 && <Empty description="No questions available in this step" />}
-        {step.questions.map(({ content, id }) => <QuestionInput key={id} content={content} multiline={step.questions.length === 1} />)}
+        {step.questions.map(({ content, id }) => <QuestionInput key={`${step.id}_${id}`} content={content} multiline={step.questions.length === 1} />)}
       </Questions>
       {!!onNext && <Actions><Button type="primary" size="large" onClick={onNext}>{ last ? 'Finish' : 'Next'}</Button></Actions>}
     </Root>
   )
 }
 
-const Root = styled.div`
+const Root = styled.div<{$standalone?: boolean}>`
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 120px);
+  height: ${props => props.$standalone ? 'auto' : 'calc(100vh - 120px)'};
 `
 
 const Questions = styled.div`
