@@ -1,10 +1,12 @@
-import { Menu } from 'antd'
-import React from 'react'
+import { Menu, Tour } from 'antd'
 import { NavLink, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
+import useTour from './useTour'
 
 const Header = () => {
   const { pathname } = useLocation()
+  const { questionsRef, stepsRef, previewRef, tourOpen, handleCloseTour, tourSteps } = useTour()
+
   return (
     <Root>
       <NavLink to="/">
@@ -14,11 +16,13 @@ const Header = () => {
         mode="horizontal"
         selectedKeys={[pathname]}
         items={[
-          { label: <NavLink to="/questions">Questions</NavLink>, key: '/questions' },
-          { label: <NavLink to="/steps">Steps</NavLink>, key: '/steps' },
-          { label: <NavLink to="/preview">Preview</NavLink>, key: '/preview' },
+          { label: <NavLink ref={questionsRef} to="/questions">Questions</NavLink>, key: '/questions' },
+          { label: <NavLink ref={stepsRef} to="/steps">Steps</NavLink>, key: '/steps' },
+          { label: <NavLink ref={previewRef} to="/preview">Preview</NavLink>, key: '/preview' },
         ]}
       />
+
+      <Tour open={tourOpen} steps={tourSteps} onClose={handleCloseTour} />
     </Root>
   )
 }
