@@ -1,6 +1,5 @@
 import React, { createContext, useState } from 'react'
-import { IStep } from '../models/Step'
-import { IQuestion } from '../models/Question'
+import { IStep, IQuestion } from '../models'
 
 interface Props {
   steps: IStep[]

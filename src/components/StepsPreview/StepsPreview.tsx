@@ -1,6 +1,6 @@
 import { Carousel } from 'antd'
 import React, { useRef } from 'react'
-import { IStep } from '../../models/Step'
+import { IStep } from '../../models'
 import StepSlide from './StepSlide'
 import { CarouselRef } from 'antd/es/carousel'
 

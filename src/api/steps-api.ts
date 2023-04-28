@@ -1,6 +1,5 @@
 import axios from "axios"
-import { IQuestion } from "../models/Question"
-import { IStep } from "../models/Step"
+import { IStep, IQuestion } from "../models"
 
 const getSteps = (): Promise<IStep[]> => {
   return axios.get('/steps').then(response => response.data)

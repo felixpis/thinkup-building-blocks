@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { StoreContext } from "../context/StoreContext";
 import questionsApi from "../api/questions-api";
-import { IQuestion } from "../models/Question";
+import { IQuestion } from "../models";
 
 export default function useQuestions() {
   const { questions, setQuestions } = useContext(StoreContext)

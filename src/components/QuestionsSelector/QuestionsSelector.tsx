@@ -1,6 +1,5 @@
 import React from 'react'
-import { IQuestion } from '../../models/Question'
-import { IStep } from '../../models/Step'
+import { IStep, IQuestion } from '../../models'
 import { Button, Dropdown, MenuProps } from 'antd'
 
 interface Props {
@@ -19,7 +18,7 @@ const QuestionsSelector = ({ step, questions, onSelect }: Props) => {
 
   return (
     <Dropdown menu={{ items, onClick }}>
-      <Button>Select a question to add to Step {step.order}</Button>
+      <Button>Select a question to add to the Step</Button>
     </Dropdown>
   )
 }

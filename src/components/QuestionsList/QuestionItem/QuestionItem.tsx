@@ -1,6 +1,6 @@
 import { Button, Input, InputRef, List, Popconfirm } from 'antd'
 import React, { useEffect, useRef, useState } from 'react'
-import { IQuestion } from '../../../models/Question'
+import { IQuestion } from '../../../models'
 import { DeleteOutlined, EditOutlined, RollbackOutlined, SaveOutlined } from '@ant-design/icons'
 
 interface Props {

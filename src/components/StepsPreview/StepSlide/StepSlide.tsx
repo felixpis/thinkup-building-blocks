@@ -1,5 +1,5 @@
 import React from 'react'
-import { IStep } from '../../../models/Step'
+import { IStep } from '../../../models'
 import QuestionInput from './QuestionInput'
 import styled from 'styled-components'
 import { Button } from 'antd'

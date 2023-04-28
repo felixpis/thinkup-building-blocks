@@ -2,8 +2,7 @@ import { useContext, useEffect } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { StoreContext } from "../context/StoreContext";
 import stepsApi from "../api/steps-api";
-import { IQuestion } from "../models/Question";
-import { IStep } from "../models/Step";
+import { IStep, IQuestion } from "../models";
 
 export default function useSteps() {
   const { steps, setSteps } = useContext(StoreContext)
@@ -14,8 +13,7 @@ export default function useSteps() {
   }, [])
 
   const addStep = () => {
-    const newOrder = !!steps[steps.length - 1] ? steps[steps.length - 1].order + 1 : 1
-    const newStep = { id: uuidv4(), order: newOrder, questions: []}
+    const newStep: IStep = { id: uuidv4(), questions: []}
     setSteps([...steps, newStep])
     stepsApi.createStep(newStep)
   }

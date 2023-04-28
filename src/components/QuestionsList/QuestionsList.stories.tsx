@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import QuestionsList from './QuestionsList';
 import { useState } from 'react';
-import { IQuestion } from '../../models/Question';
+import { IQuestion } from '../../models';
 
 const meta: Meta<typeof QuestionsList> = {
   title: 'QuestionsList',

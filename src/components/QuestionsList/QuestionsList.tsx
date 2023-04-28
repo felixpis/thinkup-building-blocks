@@ -1,5 +1,5 @@
 import React from 'react'
-import { IQuestion } from '../../models/Question'
+import { IQuestion } from '../../models'
 import styled from 'styled-components'
 import { List } from 'antd'
 import AddQuestion from './AddQuestion/AddQuestion'

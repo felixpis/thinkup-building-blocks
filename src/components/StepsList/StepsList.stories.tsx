@@ -3,8 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import StepsList from './StepsList';
 import { useState } from 'react';
-import { IQuestion } from '../../models/Question';
-import { IStep } from '../../models/Step';
+import { IStep, IQuestion } from '../../models';
 import questionsMock from './__mocks__/questions.json'
 
 const meta: Meta<typeof StepsList> = {
@@ -19,8 +18,7 @@ const StepsListExample = () => {
   const [steps, setSteps] = useState<IStep[]>([])
 
   const handleAdd = () => {
-    const newOrder = !!steps[steps.length - 1] ? steps[steps.length - 1].order + 1 : 1
-    setSteps([...steps, { id: uuidv4(), order: newOrder, questions: []}])
+    setSteps([...steps, { id: uuidv4(), questions: []}])
   }
 
   const handleUpdate = (step: IStep, questions: IQuestion[]) => {
