@@ -16,9 +16,25 @@ export const StoreContext = createContext<Props>({
 
 const StoreProvider = ({ children }: { children: React.ReactElement }) => {
   const [questions, setQuestions] = useState<IQuestion[]>([])
-  const [steps, setSteps] = useState<IStep[]>([])
+  const [initialSteps, setSteps] = useState<IStep[]>([])
+  const steps = mapQuestionsToSteps(initialSteps, questions)
 
   return <StoreContext.Provider value={{ questions, setQuestions, steps, setSteps }}>{children}</StoreContext.Provider>
+}
+
+const mapQuestionsToSteps = (steps: IStep[], questions: IQuestion[]) => {
+  const questionsObj = mapQuestionsToObj(questions)
+  return steps.map(step => {
+    const mappedQuestions: IQuestion[] = step.questions.map(q => ({ id: q.id, content: questionsObj[q.id]}))
+    return {...step, questions: mappedQuestions}
+  })
+}
+
+const mapQuestionsToObj = (questions: IQuestion[]): Record<string, string> => {
+  return questions.reduce((prev, current) => {
+    prev[current.id] = current.content
+    return prev
+  }, {} as Record<string, string>)
 }
 
 export default StoreProvider

@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import StepsList from '../components/StepsList/StepsList'
-import useSteps from '../hooks/useSteps';
-import useQuestions from '../hooks/useQuestions';
+import { useSteps, useQuestions } from '../hooks';
 
 const Steps = () => {
   const { steps, addStep, updateStep, deleteStep} = useSteps()

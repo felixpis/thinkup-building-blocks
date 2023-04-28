@@ -21,6 +21,7 @@ export default function useSteps() {
   const updateStep = (step: IStep, questions: IQuestion[]) => {
     const foundIndex = steps.findIndex(s => s.id === step.id)
     setSteps([...steps.slice(0, foundIndex), {...step, questions }, ...steps.slice(foundIndex + 1)])
+    stepsApi.updateStep(step.id, questions.map(q => q.id))
   }
 
   const deleteStep = (step: IStep) => {

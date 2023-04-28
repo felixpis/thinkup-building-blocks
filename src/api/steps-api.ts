@@ -1,5 +1,5 @@
 import axios from "axios"
-import { IStep, IQuestion } from "../models"
+import { IStep } from "../models"
 
 const getSteps = (): Promise<IStep[]> => {
   return axios.get('/steps').then(response => response.data)
@@ -9,7 +9,7 @@ const createStep = (step: IStep) => {
   return axios.post('/steps', step)
 }
 
-const updateStep = (id: string, questions: IQuestion[]) => {
+const updateStep = (id: string, questions: string[]) => {
   return axios.patch(`/steps/${id}`, { questions })
 }
 

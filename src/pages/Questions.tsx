@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import QuestionsList from '../components/QuestionsList/QuestionsList'
-import useQuestions from '../hooks/useQuestions';
+import { useQuestions } from '../hooks';
 
 const Questions = () => {
   const { questions, addQuestion, updateQuestion, deleteQuestion } = useQuestions()
