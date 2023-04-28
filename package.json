@@ -29,7 +29,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "server": "json-server --watch db.json --port 3001"
   },
   "eslintConfig": {
     "extends": [
@@ -75,5 +76,6 @@
     "prop-types": "^15.8.1",
     "storybook": "^7.0.7",
     "webpack": "^5.80.0"
-  }
+  },
+  "proxy": "http://localhost:3001"
 }
